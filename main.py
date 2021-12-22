@@ -1,4 +1,4 @@
-import json
+import requests
 
-
-print('Hello from Eugene')
+response = requests.get("https://playground.learnqa.ru/api/get_text")
+print(response.text)
