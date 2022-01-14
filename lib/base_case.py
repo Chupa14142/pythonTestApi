@@ -2,12 +2,13 @@ import json.decoder
 from datetime import datetime
 from requests import Response
 
+
 class BaseCase:
-    def get_cookie (self, response: Response, cookie_name):
+    def get_cookie(self, response: Response, cookie_name):
         assert cookie_name in response.cookies, f"Cannot find cookie with name {cookie_name} in the last response"
         return response.cookies[cookie_name]
 
-    def get_header (self, response: Response, headers_name):
+    def get_header(self, response: Response, headers_name):
         assert headers_name in response.headers, f"Cannot find header with the name {headers_name} in the last response"
         return response.headers[headers_name]
 
@@ -20,17 +21,36 @@ class BaseCase:
         assert name in response_as_dict, f"Response JSON doesn't have key '{name}'"
         return response_as_dict[name]
 
-
-    def prepare_registration_data(self, email=None):
+    def prepare_registration_data(self, email=None, username=None):
         if email is None:
             base_part = "learnqa"
             domain = "example.com"
             random_part = datetime.now().strftime("%m%d%Y%H%M%S")
             email = f"{base_part}{random_part}@{domain}"
+        if username is None:
+            username = 'learnqa'
         return {
-                'password': '123',
-                'username': 'learnqa',
-                'firstName': 'learnqa',
-                'lastName': 'learnqa',
-                'email': email
-            }
+            'password': '123',
+            'username': username,
+            'firstName': 'learnqa',
+            'lastName': 'learnqa',
+            'email': email
+        }
+
+    def prepare_register_data_without_field_by_name(self, field_name_to_delete):
+        data = {
+            "email": "learnqa@example.com",
+            'password': '123',
+            'username': 'learnqa',
+            'firstName': 'learnqa',
+            'lastName': 'learnqa'
+        }
+        if field_name_to_delete in data:
+            del data[field_name_to_delete]
+        else:
+            print(f"Incorrect field name: {field_name_to_delete}")
+
+
+        return data
+
+
