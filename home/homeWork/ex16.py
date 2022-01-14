@@ -35,4 +35,4 @@ class TestClassEx16(Assertions):
         for key in keys_for_not_owner:
             assert key not in response3.json(), f"Key {key} is still in response: {response3.json()}"
 
-        Assertions.assert_json_has_not_key(response3, keys_for_not_owner)
+        Assertions.assert_json_has_not_keys(response3, keys_for_not_owner)
