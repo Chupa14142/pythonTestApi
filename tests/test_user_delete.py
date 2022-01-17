@@ -1,8 +1,12 @@
 from lib.my_requests import MyRequests
 from lib.assertions import Assertions
 from lib.base_case import BaseCase
+import allure
 
 
+@allure.epic("Delete cases")
+@allure.description("This is for Ex19: Теги Allure")
+@allure.severity(allure.severity_level.CRITICAL)
 class TestUserDelete(BaseCase):
     def test_try_to_delete_hardcore_user(self):
         data = {
